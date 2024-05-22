@@ -1,0 +1,36 @@
+version: '3.1'
+services:
+  postgres:
+    image: postgres:9.6
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_USER: ybenlafk
+      POSTGRES_DB: mydb
+    ports:
+      - 5432:5432
+  prisma-migrate:
+    image: node:20.6.1-slim
+    container_name: prisma_migrate
+    working_dir: /usr/src/app
+    restart: on-failure
+    volumes:
+      - ./back:/usr/src/app
+    entrypoint: [ "sh", "-c", "apt-get update -y && apt-get install -y openssl && npm install && npx prisma migrate deploy" ]
+    depends_on:
+      - postgres
+  back:
+    build: ./back
+    restart: always
+    ports:
+      - 8080:8080
+    depends_on:
+      - postgres
+      - prisma-migrate
+  front:
+    build: ./front
+    restart: always
+    ports:
+      - 3000:3000
+    depends_on:
+      - back

@@ -1,0 +1,209 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url  	    = env("DATABASE_URL")
+}
+
+enum Appearance {
+  protected
+  private
+  public
+}
+
+enum Role{
+  ADMIN
+  MOD
+  MEMBER
+}
+
+enum Status {
+  ONLINE
+  OFFLINE
+  IN_GAME
+}
+
+enum Req {
+  RECIVED
+  SEND
+}
+
+enum FriendshipStatus {
+  PENDING
+  ACCEPTED
+  BLOCKED
+}
+
+enum N_Type {
+  MESSAGE
+  REQUEST
+}
+
+
+model user {
+  id        Int      @id @default(autoincrement())
+  googleId  String?  @unique
+  fortytwoId  Int?  @unique
+  nickname     String   @unique
+  name      String?
+  middlename String? @default("zuse")
+  password  String
+  picture   String? @default("https://res.cloudinary.com/dxxlqdwxb/image/upload/v1713806275/kx6iknqyvu0uyqhhpfro.jpg")
+  banner_picture String? @default("https://res.cloudinary.com/dxxlqdwxb/image/upload/v1713526102/zxwritc0rqvtjvcwbqiv.jpg")
+  status    Status  @default(OFFLINE)
+  xp        Int?     @default(0)
+  level     Int?      @default(1)
+  createdAt DateTime @default(now())
+  twoFa    Boolean? @default(false)
+  twoFaSecret String?
+  first_time Boolean? @default(true)
+  notified Boolean?   @default(false)
+  coins Int?          @default(1000)
+  win_streak Int?     @default(0)
+
+  friends Friendship[]
+  achievements achievement[]
+  channel_participants channel_participant[]
+  ban ban_list[]
+  notifications notification[]
+
+  paddles paddle[]
+  balls ball[]
+}
+
+model SearchHistory {
+  id        Int      @id @default(autoincrement())
+  userId     Int?
+  searchingUserId Int?
+  createdAt DateTime @default(now())
+}
+
+model Friendship {
+  id        Int       @id @default(autoincrement())
+  user_id    Int?     @default(0)
+  friendId  Int?      @default(0)
+  status    FriendshipStatus
+  request  Req?       @default(SEND)
+  user    user?       @relation(fields: [user_id], references: [id])
+  createdAt DateTime  @default(now())
+}
+
+
+model achievement {
+  id        Int      @id @default(autoincrement())
+  name      String?
+  description String?
+  picture   String?
+  createdAt DateTime  @default(now())
+  user_id    Int?     @default(0)
+  user    user?       @relation(fields: [user_id], references: [id])
+}
+
+model game_history {
+  id        Int      @id @default(autoincrement())
+  winner    Int?     @default(0)
+  loser    Int?     @default(0)
+  winner_score    Int?     @default(0)
+  loser_score    Int?     @default(0)
+  winner_streak    Int?     @default(0)
+
+  start_time    DateTime? @default(now())
+  end_time    DateTime?
+}
+
+model channel{
+  id           Int      @id @default(autoincrement())
+  picture String? @default("https://res.cloudinary.com/dxxlqdwxb/image/upload/v1713806275/kx6iknqyvu0uyqhhpfro.jpg")
+  topic       String? @default("here to have fun and make friends, no toxicity allowed")
+  key          String?
+  state        Appearance? @default(public)
+  name         String? @unique
+  createdAt    DateTime @default(now())
+  messages     message[]
+  participants channel_participant[]
+  ban ban_list[]
+}
+
+model message{
+  id        Int      @id @default(autoincrement())
+  channel_id    Int?
+  sender_id    Int? @default(0)
+  sender_picture    String?
+  conversation_id    Int?
+  content    String?
+  content_type    String?
+  createdAt DateTime @default(now())
+  conv   conversation?    @relation(fields: [conversation_id], references: [id])
+  channel    channel?     @relation(fields: [channel_id], references: [id])
+}
+
+model ban_list{
+  id        Int      @id @default(autoincrement())
+  user_id    Int?     @default(0)
+  channel_id    Int?     @default(0)
+  joinedAt DateTime @default(now())
+  user    user?     @relation(fields: [user_id], references: [id])
+  channel    channel?     @relation(fields: [channel_id], references: [id])
+}
+
+model channel_participant{
+  id        Int      @id @default(autoincrement())
+  user_id    Int?     @default(0)
+  channel_id    Int?     @default(0)
+  role Role? @default(MEMBER)
+  mute Boolean? @default(false)
+  joinedAt DateTime @default(now())
+  user    user?     @relation(fields: [user_id], references: [id])
+  channel    channel?     @relation(fields: [channel_id], references: [id])
+}
+
+model conversation {
+  id        Int      @id @default(autoincrement())
+  user_a_id    Int?     @default(0)
+  user_b_id    Int?     @default(0)
+  createdAt DateTime @default(now())
+  messages message[]
+}
+
+model notification {
+  id        Int      @id @default(autoincrement())
+  user_id    Int?     @default(0)
+  sender_name   String?
+  sender_picture   String?
+  sender_id    Int?     @default(0)
+  type  N_Type?
+  createdAt DateTime @default(now())
+  user    user?     @relation(fields: [user_id], references: [id])
+}
+
+model paddle {
+  id        Int      @id @default(autoincrement())
+  user_id    Int?     @default(0)
+  image    String?
+  color     String? @unique
+  enabled   Boolean? @default(false)
+  createdAt DateTime @default(now())
+  user    user?     @relation(fields: [user_id], references: [id])
+}
+
+model ball {
+  id        Int      @id @default(autoincrement())
+  user_id    Int?     @default(0)
+  image     String?
+  texture  String? @default("/Game/textures/balls/default.jpg")
+  color     String? @unique
+  enabled   Boolean? @default(false)
+  createdAt DateTime @default(now())
+  user    user?     @relation(fields: [user_id], references: [id])
+}
+
+model blacklistedTokens {
+  id        Int      @id @default(autoincrement())
+  token     String? @unique
+  createdAt DateTime @default(now())
+}
