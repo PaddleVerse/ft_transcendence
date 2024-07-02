@@ -17,13 +17,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-      <html lang="en" className="">
-        <body
-          className={`${inter.className} w-screen h-screen bg-Dark bg-fixed bg-center bg-no-repeat bg-cover no-scrollbar`}
-        >
-        <GridBackground></GridBackground>
-        {children}
-      </body>
-    </html>
+    {children}
+
   );
 }
