@@ -54,7 +54,7 @@ export default function SignupFormDemo() {
       if (accessToken) {
         // Access token is present, make a request to the protected endpoint
         axios
-        .get(`http://${ipAdress}/auth/protected`, {
+        .get(`https://${ipAdress}/auth/protected`, {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
@@ -68,7 +68,7 @@ export default function SignupFormDemo() {
             if (res?.data?.twoFa)
               setIsTwoFa("2fa");
             else
-              router.push(`http://${process.env.NEXT_PUBLIC_FRONT_URL}/Dashboard`);
+              router.push(`https://${process.env.NEXT_PUBLIC_FRONT_URL}/Dashboard`);
           }
           else
             setLoading(false);
@@ -91,7 +91,7 @@ export default function SignupFormDemo() {
 
     axios
       .post(
-        `http://${ipAdress}/auth/login`,
+        `https://${ipAdress}/auth/login`,
         {
           username: values.nickname,
           password: values.password,
@@ -117,7 +117,7 @@ export default function SignupFormDemo() {
         if (accessToken) {
           // Access token is present, make a request to the protected endpoint
           axios
-          .get(`http://${ipAdress}/auth/protected`, {
+          .get(`https://${ipAdress}/auth/protected`, {
             headers: {
               Authorization: `Bearer ${data.access_token}`,
             },
@@ -133,7 +133,7 @@ export default function SignupFormDemo() {
               else
               {
                   document.cookie = `access_token=${data.access_token}; path=/;`;
-                  router.push(`http://${process.env.NEXT_PUBLIC_FRONT_URL}/Dashboard`);
+                  router.push(`https://${process.env.NEXT_PUBLIC_FRONT_URL}/Dashboard`);
               }
             }
           })
@@ -144,18 +144,18 @@ export default function SignupFormDemo() {
   }
 
   const handleGoogle = () => {
-    router.push(`http://${ipAdress}/auth/google`);
+    router.push(`https://${ipAdress}/auth/google`);
   };
 
   const handle42 = () => {
-    router.push(`http://${ipAdress}/auth/42`);
+    router.push(`https://${ipAdress}/auth/42`);
   };
 
   useEffect(() => {
     if (isTwoFa === "true")
     {
       document.cookie = `access_token=${token}; path=/;`;
-      router.push(`http://${process.env.NEXT_PUBLIC_FRONT_URL}/Dashboard`);
+      router.push(`https://${process.env.NEXT_PUBLIC_FRONT_URL}/Dashboard`);
     }
   }, [isTwoFa]);
 

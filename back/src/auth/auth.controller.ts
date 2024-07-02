@@ -88,7 +88,7 @@ export class AuthController
         sameSite: true,
         secure: false,
       });
-      res.redirect(`http://${process.env.FRONT_URL}/Signin`);
+      res.redirect(`https://${process.env.FRONT_URL}/Signin`);
       res.status(HttpStatus.OK);
       return;
     }
@@ -97,7 +97,7 @@ export class AuthController
       sameSite: true,
       secure: false,
     });
-    res.redirect(`http://${process.env.FRONT_URL}/Dashboard`);
+    res.redirect(`https://${process.env.FRONT_URL}/Dashboard`);
     res.status(HttpStatus.OK);
   }
 
@@ -124,7 +124,7 @@ export class AuthController
         sameSite: true,
         secure: false,
       });
-      res.redirect(`http://${process.env.FRONT_URL}/Signin`);
+      res.redirect(`https://${process.env.FRONT_URL}/Signin`);
       res.status(HttpStatus.OK);
       return;
     }
@@ -133,7 +133,7 @@ export class AuthController
       sameSite: true,
       secure: false,
     });
-    res.redirect(`http://${process.env.FRONT_URL}/Dashboard`);
+    res.redirect(`https://${process.env.FRONT_URL}/Dashboard`);
     res.status(HttpStatus.OK);
   }
 

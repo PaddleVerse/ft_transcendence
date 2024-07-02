@@ -72,7 +72,7 @@ export default function SignupFormDemo() {
   }
 
   function onSubmit(values : any) {
-    axios.post(`http://${ipAdress}/auth/signup`, {
+    axios.post(`https://${ipAdress}/auth/signup`, {
       name: values.name,
       middlename: values.middlename,
       nickname: values.nickname,
@@ -99,11 +99,11 @@ export default function SignupFormDemo() {
 
 
   const handleGoogle = () => {
-    router.push(`http://${ipAdress}/auth/google`);
+    router.push(`https://${ipAdress}/auth/google`);
   }
 
   const handle42 = () => {
-      router.push(`http://${ipAdress}/auth/42`);
+      router.push(`https://${ipAdress}/auth/42`);
   }
 
   return (

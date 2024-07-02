@@ -14,11 +14,11 @@ const SignSocials = () => {
   const router = useRouter();
 
   const handleGoogle = () => {
-      router.push(`http://${ipAdress}/auth/google`);
+      router.push(`https://${ipAdress}/auth/google`);
   }
 
   const handle42 = () => {
-      router.push(`http://${ipAdress}/auth/42`);
+      router.push(`https://${ipAdress}/auth/42`);
   }
   return (
     <div

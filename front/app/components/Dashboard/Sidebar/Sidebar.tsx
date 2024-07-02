@@ -64,7 +64,7 @@ const Sidebar = () => {
         if (!res) return;
         const data = res?.data;
         if (data || data?.message !== "Unauthorized") {
-          socket = io(`http://${ipAdress}`, {
+          socket = io(`https://${ipAdress}`, {
             query: { userId: data?.id },
           });
 

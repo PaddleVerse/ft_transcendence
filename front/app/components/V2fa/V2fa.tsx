@@ -18,7 +18,7 @@ export default function V2fa({setIsTwoFa, userId} : any) {
   if (userId === -1) return;
 
 
-  axios.post(`http://${ipAdress}/auth/v2fa`, {
+  axios.post(`https://${ipAdress}/auth/v2fa`, {
     token : data?.code,
     userId : userId
   }).then((res:any) => {
