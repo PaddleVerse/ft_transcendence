@@ -13,7 +13,7 @@ const nextConfig = {
         'img.pikbest.com',
         'randomuser.me',
         'res.cloudinary.com',
-        `${process.env.NEXT_PUBLIC_API_URL}`
+        `${process.env.NEXT_PUBLIC_FRONT_URL}`
         ],
       },
       compiler: {

@@ -68,7 +68,7 @@ export default function SignupFormDemo() {
             if (res?.data?.twoFa)
               setIsTwoFa("2fa");
             else
-              router.push(`http://${process.env.NEXT_PUBLIC_API_URL}/Dashboard`);
+              router.push(`http://${process.env.NEXT_PUBLIC_FRONT_URL}/Dashboard`);
           }
           else
             setLoading(false);
@@ -133,7 +133,7 @@ export default function SignupFormDemo() {
               else
               {
                   document.cookie = `access_token=${data.access_token}; path=/;`;
-                  router.push(`http://${process.env.NEXT_PUBLIC_API_URL}/Dashboard`);
+                  router.push(`http://${process.env.NEXT_PUBLIC_FRONT_URL}/Dashboard`);
               }
             }
           })
@@ -155,7 +155,7 @@ export default function SignupFormDemo() {
     if (isTwoFa === "true")
     {
       document.cookie = `access_token=${token}; path=/;`;
-      router.push(`http://${process.env.NEXT_PUBLIC_API_URL}:3000/Dashboard`);
+      router.push(`http://${process.env.NEXT_PUBLIC_FRONT_URL}/Dashboard`);
     }
   }, [isTwoFa]);
 

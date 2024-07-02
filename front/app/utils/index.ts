@@ -120,5 +120,5 @@ export const fetchData = async (url: string, method: string, body : any) : Promi
 
 
 // Find the IPv4 address
-export const ipAdress = process.env.NEXT_PUBLIC_API_URL + ":8080";
+export const ipAdress = process.env.NEXT_PUBLIC_API_URL;
 
