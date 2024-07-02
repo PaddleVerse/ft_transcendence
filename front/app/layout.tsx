@@ -18,7 +18,6 @@ export default function RootLayout({
 }) {
   return (
       <html lang="en" className="">
-        <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"></meta>
         <body
           className={`${inter.className} w-screen h-screen bg-Dark bg-fixed bg-center bg-no-repeat bg-cover no-scrollbar`}
         >

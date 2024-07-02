@@ -20,8 +20,6 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html>
-      <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"></meta>
     <section
       className={`${inter.className} w-screen h-screen bg-[#15202E] bg-fixed bg-center bg-no-repeat bg-cover overflow-y-hidden`}
     >
@@ -34,6 +32,5 @@ export default function RootLayout({
         </TestWrapper>
       </ContentWrapper>
     </section>
-    </html>
   );
 }
