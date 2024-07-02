@@ -9,7 +9,7 @@ export class FortyTwoStrategy extends PassportStrategy(Strategy, '42') {
     super({
         clientID: process.env.FORTYTWO_ID,
         clientSecret: process.env.FORTYTWO_SECRET,
-        callbackURL: `https://${process.env.FRONT_URL}/auth/42/callback`,
+        callbackURL: `https://${process.env.API_URL}/auth/42/callback`,
         profileFields:
         {
             id: 'id',
