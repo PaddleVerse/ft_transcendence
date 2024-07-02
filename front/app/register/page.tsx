@@ -72,7 +72,7 @@ export default function SignupFormDemo() {
   }
 
   function onSubmit(values : any) {
-    axios.post(`https://${ipAdress}/auth/signup`, {
+    axios.post(`${ipAdress}/auth/signup`, {
       name: values.name,
       middlename: values.middlename,
       nickname: values.nickname,
